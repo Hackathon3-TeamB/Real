@@ -85,14 +85,26 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': os.environ.get("SQL_ENGINE"),
-        'NAME': os.environ.get("SQL_DATABASE"),
-        'USER': os.environ.get("SQL_USER"),
-        'PASSWORD': os.environ.get("SQL_PASSWORD"),
-        'HOST': os.environ.get("SQL_HOST"),
-        'PORT': os.environ.get("SQL_PORT"),
-    }
+        'ENGINE': os.environ.get("SQL_ENGINE_REAL"),
+        'NAME': os.environ.get("SQL_DATABASE_REAL"),
+        'USER': os.environ.get("SQL_USER_REAL"),
+        'PASSWORD': os.environ.get("SQL_PASSWORD_REAL"),
+        'HOST': os.environ.get("SQL_HOST_REAL"),
+        'PORT': os.environ.get("SQL_PORT_REAL"),
+        
+    },
+
+    'login_db': {
+        'ENGINE': os.environ.get("SQL_ENGINE_LOGIN"),
+        'NAME': os.environ.get("SQL_DATABASE_LOGIN"),
+        'USER': os.environ.get("SQL_USER_LOGIN"),
+        'PASSWORD': os.environ.get("SQL_PASSWORD_LOGIN"),
+        'HOST': os.environ.get("SQL_HOST_LOGIN"),
+        'PORT': os.environ.get("SQL_PORT_LOGIN"),
+    },
 }
+
+DATABASE_ROUTERS = ['config.db_router.DbRouter']
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

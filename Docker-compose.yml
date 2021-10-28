@@ -17,8 +17,9 @@ services:
       # 本番用
       # - ./.env/.env.proc
     depends_on:
-      - phpmyadmin
+      - phpmyadmin_login
 
+  # Realアプリ用MySQL
   mysql:
     build: ./MySQL
     container_name: MySQL8
@@ -33,6 +34,7 @@ services:
       # - ./.env/.envmysql.proc
     restart: always
 
+  # Realアプリ用phpMyAdmin
   phpmyadmin:
     image: phpmyadmin:latest
     container_name: phpMyAdmin
@@ -43,9 +45,43 @@ services:
       # - ./.env/.envphpmyadmin.proc
     ports:
       - "127.0.0.1:3000:80"
-    depends_on: 
+    # depends_on: 
+    #   - mysql
+    # restart: always
+    links :
       - mysql
+
+  # Loginアプリ用MySQL
+  mysql_login:
+    build: ./MySQL
+    container_name: MySQL8_login
+    volumes:
+      # - mysql_data:/var/lib/mysql
+      - ./MySQL/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      - ./logs/MySQL:/var/log/mysql
+    env_file:
+      # 開発用
+      - ./.env/.envmysql_login.dev
+      # 本番用
+      # - ./.env/.envmysql_login.proc
     restart: always
+
+  # Loginアプリ用phpMyAdmin
+  phpmyadmin_login:
+    image: phpmyadmin:latest
+    container_name: phpMyAdmin_login
+    env_file:
+      # 開発用
+      - ./.env/.envphpmyadmin_login.dev
+      # 本番用
+      # - ./.env/.envphpmyadmin_login.proc
+    ports:
+      - "127.0.0.1:4000:80"
+    # depends_on: 
+    #   - mysql_login
+    # restart: always
+    links :
+      - mysql_login
 
   apache:
     build: ./Apache-PHP
