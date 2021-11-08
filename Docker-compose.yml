@@ -9,6 +9,8 @@ services:
       - ./Django_Project:/usr/src/app
       - static_volume:/home/app/web/static
       - media_volume:/home/app/web/media
+    ports:
+      - 8000:8000
     expose:
       - "8000"
     env_file:
@@ -91,6 +93,8 @@ services:
       - media_volume:/home/app/web/media
     ports:
       - 1318:80
+    expose:
+      - "1318"
     depends_on:
       - django
 
