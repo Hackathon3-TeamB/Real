@@ -25,3 +25,7 @@ RUN apt-get update \
 # COPY ./conf/000-default.conf etc/apache2/sites-available
 COPY ./.conf/ports.conf /etc/apache2/ports.conf
 RUN chmod 644 /etc/apache2/ports.conf
+COPY ./.conf/apache2.conf /etc/apache2/apache2.conf
+RUN chmod 644 /etc/apache2/apache2.conf
+COPY ./.conf/000-default.conf /etc/apache2/sites-available/000-default.conf
+RUN chmod 644 /etc/apache2/sites-available/000-default.conf

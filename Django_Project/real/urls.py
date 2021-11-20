@@ -1,8 +1,9 @@
 from django.urls import path
 from . import views
+from .views import TWU
 
 app_name = 'real'
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', TWU.as_view(), name='index'),
 ]
