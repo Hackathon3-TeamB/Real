@@ -1,9 +1,9 @@
 import tweepy  #記事にはない追記部分
-
-Consumer_key = "Q8Sq2ddQj7DkQWZhDwdxPzgjR"
-Consumer_secret = "S9E1I2TOyXtkDvI0v61slPEaGXMz5tV9nu0eLFtmAXFnMYLtma"
-Access_token = "1418414346774794242-GLk6n6O6WtovJmfLWuJbh8bGTWfLch"
-Access_secret = "UWpvYv1yqq3leJGjoEH4chlmecF1WPxWnTBUNHZYFCZkQ"
+import os
+Consumer_key = os.environ.get('Consumer_key')
+Consumer_secret = os.environ.get('Consumer_secret')
+Access_token = os.environ.get('Access_token')
+Access_secret = os.environ.get('Access_secret')
 auth = tweepy.OAuthHandler(Consumer_key, Consumer_secret)
 auth.set_access_token(Access_token, Access_secret)
 
