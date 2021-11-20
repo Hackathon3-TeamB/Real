@@ -1,0 +1,60 @@
+.
+├── .env                       # 隠しファイルを、まとめたディレクトリ
+│   ├── .env.dev              # 主に全体用＆Django用の隠し設定値を記述(開発用)
+│   ├── .envmysql.dev         # MySQL用の隠し設定値を記述(開発用)
+│   └── .envphpmyadmin.dev    # phpMyAdmin用の隠し設定値を記述(開発用)
+｜
+├── Apache-PHP                 # PHP導入済みApache2のDockerコンテナ設定用ディレクトリ
+│   ├── .conf
+│   │   └── ports.conf       # Apacheの使用ポートを設定
+│   ├── Dockerfile            # Apache用のDockerファイル
+│   └── php.ini               # PHPの初期設定ファイル
+｜
+├── Django_Project             # DjangoのDockerコンテナ設定用ディレクトリ
+│   ├── config                # DjangoのProjectディレクトリ
+│   │   ├── __pycache__
+│   │   ├── __init__.py
+│   │   ├── asgi.py
+│   │   ├── settings.py
+│   │   ├── urls.py
+│   │   └── wsgi.py
+│   ├── login                 # Djangoのloginアプリ用のディレクトリ
+│   │   ├── __pycache__
+│   │   ├── __init__.py
+│   │   ├── admin.py          
+│   │   ├── apps.py
+│   │   ├── models.py         
+│   │   ├── tests.py
+│   │   └── views.py
+│   ├── real                  # Djangoのrealアプリ用のディレクトリ
+│   │   ├── __pycache__
+│   │   ├── __init__.py
+│   │   ├── admin.py
+│   │   ├── apps.py
+│   │   ├── models.py
+│   │   ├── tests.py
+│   │   └── views.py
+│   ├── venv                  # Python3.9.7を設定したvenvディレクトリ(Djangoインストール済)
+│   ├── docker-entrypoint.sh  # MySQL8.0への接続用 初期設定ファイル
+│   ├── Dockerfile            # Django用のDockerファイル
+│   ├── manage.py             # Djangoの設定ファイル
+│   └── requirements.txt      # DjangoのDockerコンテナにインストールしたいモジュールを記述
+｜
+├── logs                       # 各ログまとめディレクトリ
+│   ├── Apache
+│   └── MySQL
+｜
+├── MySQL                      # MySQL8.0のDockerコンテナ設定用ディレクトリ
+│   ├── DataBase              # MySQL8.0のデータベース格納ディレクトリ
+│   ├── docker-entrypoint-initdb.d
+│   │   └── init.sql         # MySQL8.0の初期テーブルを設定
+│   ├── Dockerfile            # MySQL8.0のDockerファイル
+│   └── my.cnf                # MySQL8.0の初期値を設定
+｜
+├── phpMyAdmin                 # phpMyAdminのDockerコンテナ設定用ディレクトリ
+｜
+├── .cache_clear.sh            # Djangoのマイグレーションを削除(初期化の前準備)
+├── .Database_clear.sh         # MySQL8.0のデータベースを削除＆初期化
+├── .gitignore
+├── .migration.sh              # Djangoのマイグレーションを実行(初期化)
+└── Docker-compose.yml         # Dockerの各コンテナの設定を記述
