@@ -9,12 +9,10 @@ services:
       # - ./Django_Project:/usr/src/app
       - static_volume:/home/app/web/static
       - media_volume:/home/app/web/media
-    ports:
-      - 8000:8000
+    # ports:
+    #   - "8000:8000"
     expose:
       - 8000
-    ports:
-      - 8000:8000
     env_file:
       # 開発用
       - ./env/.env.dev
@@ -22,6 +20,9 @@ services:
       # - ./env/.env.proc
     depends_on:
       - phpmyadmin
+    networks:
+      real_net:
+        ipv4_address: 192.168.0.4
 
   # Realアプリ用MySQL
   mysql:
@@ -37,6 +38,9 @@ services:
       # 本番用
       # - ./env/.envmysql.proc
     restart: always
+    networks:
+      real_net:
+        ipv4_address: 192.168.0.2
 
   # Realアプリ用phpMyAdmin
   phpmyadmin:
@@ -49,43 +53,11 @@ services:
       # - ./env/.envphpmyadmin.proc
     ports:
       - "127.0.0.1:3000:80"
-    # depends_on: 
-    #   - mysql
-    # restart: always
     links :
       - mysql
-
-  # Loginアプリ用MySQL
-  # mysql_login:
-  #   build: ./MySQL
-  #   container_name: MySQL8_login
-  #   volumes:
-  #     # - mysql_data:/var/lib/mysql
-  #     - ./MySQL/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
-  #     - ./logs/MySQL:/var/log/mysql
-  #   env_file:
-  #     # 開発用
-  #     - ./env/.envmysql_login.dev
-  #     # 本番用
-  #     # - ./env/.envmysql_login.proc
-  #   restart: always
-
-  # # Loginアプリ用phpMyAdmin
-  # phpmyadmin_login:
-  #   image: phpmyadmin:latest
-  #   container_name: phpMyAdmin_login
-  #   env_file:
-  #     # 開発用
-  #     - ./env/.envphpmyadmin_login.dev
-  #     # 本番用
-  #     # - ./env/.envphpmyadmin_login.proc
-  #   ports:
-  #     - "127.0.0.1:4000:80"
-  #   # depends_on: 
-  #   #   - mysql_login
-  #   # restart: always
-  #   links :
-  #     - mysql_login
+    networks:
+      real_net:
+        ipv4_address: 192.168.0.3
 
   apache:
     build: ./Apache-PHP
@@ -94,9 +66,12 @@ services:
       - static_volume:/home/app/web/static
       - media_volume:/home/app/web/media
     ports:
-      - 80:80
+      - "80:80"
     depends_on:
       - django
+    networks:
+      real_net:
+        ipv4_address: 192.168.0.5
 
 
 volumes:
@@ -108,3 +83,11 @@ volumes:
   # pgadmin4:
   static_volume:
   media_volume:
+
+networks:
+  real_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.0.0/24

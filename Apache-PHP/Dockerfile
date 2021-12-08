@@ -22,10 +22,20 @@ RUN apt-get update \
 # RUN rm /etc/apache2/sites-available/000-default.conf
 # RUN rm /etc/apache2/ports.conf
 
+
 # COPY ./conf/000-default.conf etc/apache2/sites-available
 COPY ./.conf/ports.conf /etc/apache2/ports.conf
 RUN chmod 644 /etc/apache2/ports.conf
+COPY ./.conf/proxy.conf /etc/apache2/mods-available/proxy.conf
+RUN chmod 644 /etc/apache2/mods-available/proxy.conf
 COPY ./.conf/apache2.conf /etc/apache2/apache2.conf
 RUN chmod 644 /etc/apache2/apache2.conf
 COPY ./.conf/000-default.conf /etc/apache2/sites-available/000-default.conf
 RUN chmod 644 /etc/apache2/sites-available/000-default.conf
+COPY ./.conf/000-default.conf /etc/apache2/sites-available/default-ssl.conf
+RUN chmod 644 /etc/apache2/sites-available/default-ssl.conf
+
+RUN a2enmod proxy_http
+# RUN a2ensite default-ssl
+# RUN a2enmod ssl
+# RUN a2enmod rewrite

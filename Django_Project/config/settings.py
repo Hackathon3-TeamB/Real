@@ -82,33 +82,33 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': os.environ.get("SQL_ENGINE_REAL"),
-#         'NAME': os.environ.get("SQL_DATABASE_REAL"),
-#         'USER': os.environ.get("SQL_USER_REAL"),
-#         'PASSWORD': os.environ.get("SQL_PASSWORD_REAL"),
-#         'HOST': os.environ.get("SQL_HOST_REAL"),
-#         'PORT': os.environ.get("SQL_PORT_REAL"),
-        
-#     },
-
-#     # 'mysql_login': {
-#     #     'ENGINE': os.environ.get("SQL_ENGINE_LOGIN"),
-#     #     'NAME': os.environ.get("SQL_DATABASE_LOGIN"),
-#     #     'USER': os.environ.get("SQL_USER_LOGIN"),
-#     #     'PASSWORD': os.environ.get("SQL_PASSWORD_LOGIN"),
-#     #     'HOST': os.environ.get("SQL_HOST_LOGIN"),
-#     #     'PORT': os.environ.get("SQL_PORT_LOGIN"),
-#     # },
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': os.environ.get("SQL_ENGINE_REAL"),
+        'NAME': os.environ.get("SQL_DATABASE_REAL"),
+        'USER': os.environ.get("SQL_USER_REAL"),
+        'PASSWORD': os.environ.get("SQL_PASSWORD_REAL"),
+        'HOST': os.environ.get("SQL_HOST_REAL"),
+        'PORT': os.environ.get("SQL_PORT_REAL"),
+        
+    },
+
+    # 'mysql_login': {
+    #     'ENGINE': os.environ.get("SQL_ENGINE_LOGIN"),
+    #     'NAME': os.environ.get("SQL_DATABASE_LOGIN"),
+    #     'USER': os.environ.get("SQL_USER_LOGIN"),
+    #     'PASSWORD': os.environ.get("SQL_PASSWORD_LOGIN"),
+    #     'HOST': os.environ.get("SQL_HOST_LOGIN"),
+    #     'PORT': os.environ.get("SQL_PORT_LOGIN"),
+    # },
+}
 
 # DATABASE_ROUTERS = ['config.db_router.DbRouter']
 
